@@ -1,10 +1,15 @@
 <script setup lang="ts">
-import { useTodoerStore } from './stores/todoer';
+import { storeToRefs } from 'pinia';
+import { useTodoerStore } from '@/stores/todoer';
+import { useUserIdentifyStore } from '@/stores/userIdentify'
 
+const userIdentify = useUserIdentifyStore();
 const todoer = useTodoerStore();
+const { userIdentifyId } = storeToRefs(userIdentify)
 
 function test () {
   const todo = <todoItem>{
+    identifyId: userIdentifyId.value,
     id: new Date().getTime(),
     value: 'hello',
     completed: false
