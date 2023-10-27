@@ -4,5 +4,6 @@ declare interface todoItem {
   identifyId: string;
   id: number;
   value: string;
+  isEdit?: boolean
   completed?: boolean;
 }
