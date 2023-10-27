@@ -1,26 +1,28 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
-import { useTodoerStore } from '@/stores/todoer';
-import { useUserIdentifyStore } from '@/stores/userIdentify'
+import Home from '@/views/Home.vue';
+// import { storeToRefs } from 'pinia';
+// import { useTodoerStore } from '@/stores/todoer';
+// import { useUserIdentifyStore } from '@/stores/userIdentify'
 
-const userIdentify = useUserIdentifyStore();
-const todoer = useTodoerStore();
-const { userIdentifyId } = storeToRefs(userIdentify)
+// const userIdentify = useUserIdentifyStore();
+// const todoer = useTodoerStore();
+// const { userIdentifyId } = storeToRefs(userIdentify)
 
-function test () {
-  const todo = <todoItem>{
-    identifyId: userIdentifyId.value,
-    id: new Date().getTime(),
-    value: 'hello',
-    completed: false
-  };
+// function test () {
+//   const todo = <todoItem>{
+//     identifyId: userIdentifyId.value,
+//     id: new Date().getTime(),
+//     value: 'hello',
+//     completed: false
+//   };
 
-  todoer.addTodo(todo);
-}
+//   todoer.addTodo(todo);
+// }
 </script>
 
 <template>
-  <div>
+  <Home />
+  <!-- <div>
     <button @click="test">click</button>
     <hr>
     <div>
@@ -28,7 +30,7 @@ function test () {
         {{ item.value }}
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <style scoped>
