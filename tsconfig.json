@@ -22,20 +22,17 @@
 
     /* add */
     "baseUrl": ".",
-    "typeRoots": ["./types/"],
+    "typeRoots": ["node_modules/@types"],
     "sourceMap": true,
     "paths": {
-      "@/*": ["src/*"],
-      "/#/*": ["types/*"]
+      "@/*": ["src/*"]
     }
   },
   "include": [
     "src/**/*.ts", 
     "src/**/*.d.ts", 
     "src/**/*.tsx", 
-    "src/**/*.vue",
-    "types/**/*.d.ts",
-    "types/**/*.ts"
+    "src/**/*.vue"
   ],
   "exclude": [
     "node_modules"

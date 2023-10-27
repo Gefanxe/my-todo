@@ -28,6 +28,7 @@ function inputFocusMe(e: MouseEvent) {
           class="flex-1 mr-2"
           type="text"
           name="todo"
+          autocomplete="off"
           ref="input"
           @mouseover="inputFocusMe"
           @keyup.enter="addToList(input as HTMLInputElement)"
@@ -50,7 +51,14 @@ function inputFocusMe(e: MouseEvent) {
             >D</button>
           </div>
           <div class="flex" v-else>
-            <input class="ml-10" type="text" v-model="todo.value" @mouseover="inputFocusMe" @keyup.enter="todo.isEdit=false" @blur="todo.isEdit=false">
+            <input
+              class="ml-10"
+              type="text"
+              autocomplete="off"
+              v-model="todo.value"
+              @mouseover="inputFocusMe"
+              @keyup.enter="todo.isEdit=false"
+              @blur="todo.isEdit=false">
           </div>
           <hr v-if="index !== (todoer.list.filter(todo => !todo.completed).length - 1)">
         </div>
