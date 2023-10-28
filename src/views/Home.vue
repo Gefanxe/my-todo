@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useTodoerStore } from '@/stores/todoer';
+import { testApi } from '@/api/todo'
+
 const todoer = useTodoerStore();
 
 const input = ref<HTMLInputElement>();
@@ -16,10 +18,17 @@ function inputFocusMe(e: MouseEvent) {
   (e.target as HTMLInputElement).focus();
 }
 
+function test() {
+  testApi()
+}
+
 </script>
 
 <template>
   <div class="flex justify-center flex-col items-center">
+    <button @click="test">test</button>
+    <hr>
+
     <fieldset class="w-80">
       <legend>新增</legend>
       <div class="flex ml-4">
@@ -64,6 +73,7 @@ function inputFocusMe(e: MouseEvent) {
         </div>
       </div>
     </fieldset>
+
     <fieldset class="w-80">
       <legend>完成</legend>
       <div class="flex flex-col ml-4">

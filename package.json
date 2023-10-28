@@ -4,11 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite serve --mode development",
+    "build:prod": "vue-tsc --noEmit && vite build --mode production",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.6.0",
     "lodash": "^4.17.21",
     "pinia": "^2.1.7",
     "uuid": "^9.0.1",
