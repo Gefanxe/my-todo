@@ -1,13 +1,13 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
 // import './style.css'
-import 'virtual:uno.css'
-import App from './App.vue'
+import 'virtual:uno.css';
+import App from './App.vue';
 
-const pinia = createPinia()
+const pinia = createPinia();
 
-const app = createApp(App)
+const app = createApp(App);
 
-app.use(pinia)
+app.use(pinia);
 
-app.mount('#app')
+app.mount('#app');

@@ -23,5 +23,10 @@ declare global {
      */
     total: number;
   }
+
+  interface ResponseResult {
+    result: string
+  }
+
 }
 export {};

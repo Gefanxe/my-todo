@@ -1,34 +1,40 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useTodoerStore } from '@/stores/todoer';
-import { testApi } from '@/api/todo'
+import { todoItem } from "@/api/todo/types";
+import { useTodoerStore } from '@/stores/useTodoer';
 
 const todoer = useTodoerStore();
 
 const input = ref<HTMLInputElement>();
 
-function addToList(input: HTMLInputElement) {
+async function addToList(input: HTMLInputElement) {
   if (input && input.value !== '') {
-    todoer.addTodo(input.value);
+    await todoer.addTodo(input.value);
     input.value = '';
   }
+}
+
+async function updateToList(keyName: keyof todoItem, todo: todoItem) {
+  if (todo.value !== '') {
+    const data = todo[keyName] as string | boolean;
+    await todoer.updateTodo(todo.id, data);
+    todo.isEdit = false;
+  }
+}
+
+async function deleteToList(_id: number) {
+  await todoer.deleteTodo(_id);
 }
 
 function inputFocusMe(e: MouseEvent) {
   (e.target as HTMLInputElement).focus();
 }
 
-function test() {
-  testApi()
-}
-
 </script>
 
 <template>
   <div class="flex justify-center flex-col items-center">
-    <button @click="test">test</button>
-    <hr>
-
+    <h1>Demo 我的待辦清單</h1>
     <fieldset class="w-80">
       <legend>新增</legend>
       <div class="flex ml-4">
@@ -39,9 +45,10 @@ function test() {
           name="todo"
           autocomplete="off"
           ref="input"
+          :disabled="todoer.loading"
+          placeholder="按下Enter送出資料"
           @mouseover="inputFocusMe"
           @keyup.enter="addToList(input as HTMLInputElement)"
-          @blur="addToList(input as HTMLInputElement)"
         >
       </div>
     </fieldset>
@@ -51,12 +58,13 @@ function test() {
       <div class="flex flex-col ml-4">
         <div v-for="(todo, index) in todoer.list.filter(todo => !todo.completed)" :key="todo.id">
           <div class="flex" v-if="!todo.isEdit">
-            <button type="button" class="mr-2" @click="todo.completed = true">OK</button>
+            <button type="button" class="mr-2" @click="updateToList('completed', todo)" :disabled="todoer.loading">OK</button>
             <span class="flex-1 mr-2" title="雙擊以編輯!" @dblclick="todo.isEdit=true">{{ todo.value }}</span>
             <button
               type="button"
               class="color-white bg-red-600 border-none cursor-pointer"
-              @click="todoer.deleteTodo(todo.id)"
+              :disabled="todoer.loading"
+              @click="deleteToList(todo.id)"
             >D</button>
           </div>
           <div class="flex" v-else>
@@ -65,9 +73,11 @@ function test() {
               type="text"
               autocomplete="off"
               v-model="todo.value"
+              placeholder="按下Enter送出資料"
+              :disabled="todoer.loading"
               @mouseover="inputFocusMe"
-              @keyup.enter="todo.isEdit=false"
-              @blur="todo.isEdit=false">
+              @keyup.enter="updateToList('value', todo)"
+            >
           </div>
           <hr v-if="index !== (todoer.list.filter(todo => !todo.completed).length - 1)">
         </div>
@@ -79,7 +89,7 @@ function test() {
       <div class="flex flex-col ml-4">
         <div v-for="(todo, index) in todoer.list.filter(todo => todo.completed)" :key="todo.id">
           <div class="flex">
-            <button type="button" class="mr-2" @click="todo.completed = false">KO</button>
+            <button type="button" class="mr-2" @click="updateToList('completed', todo)" :disabled="todoer.loading">KO</button>
             <span class="flex-1 mr-2">{{ todo.value }}</span>
           </div>
           <hr v-if="index !== (todoer.list.filter(todo => todo.completed).length - 1)">
@@ -98,3 +108,4 @@ function test() {
   font-size: 24px !important;
 }
 </style>
+@/stores/useTodoer

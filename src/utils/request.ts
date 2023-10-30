@@ -25,18 +25,24 @@ service.interceptors.request.use(
 // 響應攔截器
 service.interceptors.response.use(
   (response: AxiosResponse) => {
-    const { code, msg } = response.data;
-    if (code === "00000") {
-      return response.data;
-    }
+    // const { code, msg } = response.data;
+    // if (code === "00000") {
+    //   return response.data;
+    // }
     // 響應數據為二進制流處理(Excel導出)
-    if (response.data instanceof ArrayBuffer) {
-      return response;
-    }
+    // if (response.data instanceof ArrayBuffer) {
+    //   return response;
+    // }
 
     // ElMessage.error(msg || "系統出錯");
-    alert(msg || "系統出錯");
-    return Promise.reject(new Error(msg || "Error"));
+    if (response.data) {
+      return response;
+    } else {
+      return Promise.reject(new Error("Error"));
+    }
+
+    // console.log(msg || "系統出錯");
+    // return Promise.reject(new Error(msg || "Error"));
   },
   (error: any) => {
     // TODO: 404, 500... and more
