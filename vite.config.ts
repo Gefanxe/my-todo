@@ -3,13 +3,18 @@ import { UserConfig, ConfigEnv, loadEnv, defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import UnoCSS from 'unocss/vite';
 import path from "path";
+import * as pkg from './package.json';
 
 const pathSrc = path.resolve(__dirname, "src");
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
+  console.log('process.env.NODE_ENV: ', process.env.NODE_ENV);
   console.log('mode: ', mode);
+  console.log('process.cwd(): ', process.cwd());
   const env = loadEnv(mode, process.cwd());
+  console.log('env: ', env);
   return {
+    base: `/${pkg.name}/`,
     server: {
       // 允許IP訪問
       host: "0.0.0.0",

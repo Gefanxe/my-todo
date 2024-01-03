@@ -21,6 +21,7 @@
     "@types/node": "^20.8.9",
     "@types/uuid": "^9.0.6",
     "@vitejs/plugin-vue": "^4.2.3",
+    "standard-version": "^9.5.0",
     "typescript": "^5.0.2",
     "unocss": "^0.57.1",
     "vite": "^4.4.5",
