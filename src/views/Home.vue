@@ -57,7 +57,7 @@ function inputFocusMe(e: MouseEvent) {
       <legend>待辦</legend>
       <div class="flex flex-col ml-4">
         <div v-for="(todo, index) in todoer.list.filter(todo => !todo.completed)" :key="todo.id">
-          <div class="flex" v-if="!todo.isEdit">
+          <div class="flex" v-if="!todo.isEdit" data-testid="todolist">
             <button type="button" class="mr-2" @click="updateToList('completed', todo)" :disabled="todoer.loading">OK</button>
             <span class="flex-1 mr-2" title="雙擊以編輯!" @dblclick="todo.isEdit=true">{{ todo.value }}</span>
             <button
@@ -88,7 +88,7 @@ function inputFocusMe(e: MouseEvent) {
       <legend>完成</legend>
       <div class="flex flex-col ml-4">
         <div v-for="(todo, index) in todoer.list.filter(todo => todo.completed)" :key="todo.id">
-          <div class="flex">
+          <div class="flex" data-testid="finishlist">
             <button type="button" class="mr-2" @click="updateToList('completed', todo)" :disabled="todoer.loading">KO</button>
             <span class="flex-1 mr-2">{{ todo.value }}</span>
           </div>
